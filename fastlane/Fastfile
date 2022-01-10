@@ -1,0 +1,40 @@
+platform :ios do    
+  desc 'Generate ipa file'
+  lane :build_ios do
+    gym(
+      clean: true,
+      workspace: "./ios/ReleaseRNDemo.xcworkspace",
+      scheme: "ReleaseRNDemo",
+      output_directory: "./ios/",
+      output_name: "ReleaseRNDemo.ipa",
+      export_method: 'app-store',
+      xcargs: "-allowProvisioningUpdates",
+    )
+  end
+
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+
+  lane :get_dev_certs do
+    cert(development: true)
+    sign(development: true)
+  end
+
+  lane :sync_all_development do
+    match(type: "development")
+  end
+end
+
+platform :android do
+  desc "Generate apk file"
+  lane :build_android_dev do
+    gradle(task: 'clean', project_dir: 'android/')
+    increment_version_code(
+        gradle_file_path: "android/app/build.gradle",
+    )
+    # android_keystore(output_directory: "android/app")
+    gradle(task: 'assemble', build_type: 'release', project_dir: 'android/', flavor: 'release')
+  end
+end
