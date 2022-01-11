@@ -44,6 +44,7 @@ platform :ios do
   end
 
   lane :build do
+    setup_ci
     certificates
     build_ios
   end
