@@ -5,7 +5,17 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: gym" time="251.278814">
+      <testcase classname="fastlane.lanes" name="0: clean" time="2.234593">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: android_keystore" time="0.000637">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: assemblestagingrelease" time="59.391523">
         
       </testcase>
     

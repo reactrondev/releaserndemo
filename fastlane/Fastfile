@@ -1,6 +1,37 @@
+TEMP_KEYCHAIN_USER = ENV["TEMP_KEYCHAIN_USER"]
+TEMP_KEYCHAIN_PASSWORD = ENV["TEMP_KEYCHAIN_PASSWORD"]
+
+def delete_temp_keychain(name)
+  delete_keychain(
+    name: name
+  ) if File.exist? File.expand_path("~/Library/Keychains/#{name}-db")
+end
+
+def create_temp_keychain(name, password)
+  create_keychain(
+    name: name,
+    password: password,
+    unlock: false,
+    timeout: 0
+  )
+end
+
+def ensure_temp_keychain(name, password)
+  delete_temp_keychain(name)
+  create_temp_keychain(name, password)
+end
+
 platform :ios do    
   desc 'Generate ipa file'
+
+  desc 'Fetch certificates and provisioning profiles'
+  lane :certificates do
+    match(app_identifier: 'com.ReleaseRNDemo.app', type: 'appstore', readonly: true, git_basic_authorization: Base64.strict_encode64(ENV["GIT_AUTHORIZATION"]))
+  end
+
   lane :build_ios do
+    certificates
+    increment_build_number(xcodeproj: './ios/ReleaseRNDemo.xcodeproj')
     gym(
       clean: true,
       workspace: "./ios/ReleaseRNDemo.xcworkspace",
@@ -12,18 +43,23 @@ platform :ios do
     )
   end
 
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
-  end
+  lane :beta do
+    keychain_name = TEMP_KEYCHAIN_USER
+    keychain_password = TEMP_KEYCHAIN_PASSWORD
+    ensure_temp_keychain(keychain_name, keychain_password)
 
-  lane :get_dev_certs do
-    cert(development: true)
-    sign(development: true)
-  end
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APPLE_STORE_API_KEY"],
+      issuer_id: ENV["APPLE_STORE_ISSUER_ID"],
+      key_content: ENV["APPLE_STORE_CONTENT"],            
+      duration: 1200,            
+      in_house: false
+    )
 
-  lane :sync_all_development do
-    match(type: "development")
+    build
+    pilot(ipa: "./ios/Canit.ipa", api_key: api_key)
+
+    delete_temp_keychain(keychain_name)
   end
 end
 
@@ -31,10 +67,10 @@ platform :android do
   desc "Generate apk file"
   lane :build_android_dev do
     gradle(task: 'clean', project_dir: 'android/')
-    increment_version_code(
-        gradle_file_path: "android/app/build.gradle",
-    )
-    # android_keystore(output_directory: "android/app")
-    gradle(task: 'assemble', build_type: 'release', project_dir: 'android/', flavor: 'release')
+    # increment_version_code(
+    #     gradle_file_path: "android/app/build.gradle",
+    # )
+    android_keystore(output_directory: "android/app")
+    gradle(task: 'assemble', build_type: 'release', project_dir: 'android/', flavor: 'staging')
   end
 end

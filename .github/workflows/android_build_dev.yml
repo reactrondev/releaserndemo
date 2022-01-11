@@ -1,0 +1,30 @@
+name: Build Android Dev version
+on:
+  workflow_run:
+    workflows: ["Code quality CI"]
+    types:
+      - completed
+jobs:
+  publish-android-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install
+      - name: Setup Ruby for fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7"
+      - name: Install Gems
+        run: bundle install
+      - name: Build Android APK output
+        run: |
+            echo $RELEASE_KEYSTORE_BASE64 | base64 -i -d > ./android/app/release.keystore
+            echo $RELEASE_PROPERTIES | base64 -i -d > ./android/release.properties
+            bundle exec fastlane android build_android_dev
+            mkdir -p ./output
+            cp android/app/build/outputs/apk/staging/release/app-staging-release.apk ./output/canit.apk
+        env: 
+          CANIT_RELEASE_KEYSTORE_BASE64: ${{ secrets.CANIT_RELEASE_KEYSTORE_BASE64 }}
+          CANIT_RELEASE_PROPERTIES: ${{ secrets.CANIT_RELEASE_PROPERTIES }}
+      - name: Distribute Dev to Appcenter
+        run: bundle exec fastlane android upload_android_to_appcenter

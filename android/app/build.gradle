@@ -179,9 +179,9 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
-
+    flavorDimensions "version"
     productFlavors {
-        release {
+        staging {
             dimension "version"
             applicationId "com.releaserndemo"
         }
