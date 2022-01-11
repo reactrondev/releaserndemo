@@ -38,7 +38,7 @@ platform :ios do
   end
 
   lane :beta do
-    cocoapods
+
     if is_ci
       keychain_name = TEMP_KEYCHAIN_USER
       keychain_password = TEMP_KEYCHAIN_PASSWORD
