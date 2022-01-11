@@ -1,4 +1,4 @@
-git_url("https://gitlab.com/reactron/playground/releaserndemo.git")
+git_url("https://github.com/reactrondev/releasedemocerts.git")
 
 storage_mode("git")
 

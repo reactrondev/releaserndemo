@@ -5,17 +5,42 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: clean" time="2.234593">
+      <testcase classname="fastlane.lanes" name="0: delete_keychain" time="0.036934">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: android_keystore" time="0.000637">
+      <testcase classname="fastlane.lanes" name="1: create_keychain" time="0.109134">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: assemblestagingrelease" time="59.391523">
+      <testcase classname="fastlane.lanes" name="2: Switch to ios build_ios lane" time="0.000501">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: Switch to ios certificates lane" time="0.000318">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: match" time="1.299413">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: increment_build_number" time="1.900273">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: gym" time="363.433515">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: delete_keychain" time="0.023885">
         
       </testcase>
     

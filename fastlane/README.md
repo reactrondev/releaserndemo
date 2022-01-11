@@ -15,34 +15,28 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios certificates
+
+```sh
+[bundle exec] fastlane ios certificates
+```
+
+Generate ipa file
+
+Fetch certificates and provisioning profiles
+
 ### ios build_ios
 
 ```sh
 [bundle exec] fastlane ios build_ios
 ```
 
-Generate ipa file
 
-### ios custom_lane
 
-```sh
-[bundle exec] fastlane ios custom_lane
-```
-
-Description of what the lane does
-
-### ios get_dev_certs
+### ios beta
 
 ```sh
-[bundle exec] fastlane ios get_dev_certs
-```
-
-
-
-### ios sync_all_development
-
-```sh
-[bundle exec] fastlane ios sync_all_development
+[bundle exec] fastlane ios beta
 ```
 
 
