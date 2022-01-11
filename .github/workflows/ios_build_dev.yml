@@ -22,11 +22,12 @@ jobs:
           cd ios
           pod install --repo-update
         shell: bash
+        
+      - name: Install Gems
+        run: bundle install
 
-      - name: Deploy iOS Beta to TestFlight via Fastlane
-        uses: maierj/fastlane-action@v1.4.0
-        with:
-          lane: ios beta
+      - name: Build iOS
+        run: bundle exec fastlane ios beta
         env:
           DEVELOPER_PORTAL_TEAM_ID: '${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}'
           APPLE_ID: '${{ secrets.APPLE_ID }}'
