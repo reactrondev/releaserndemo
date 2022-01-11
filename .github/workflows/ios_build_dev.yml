@@ -35,3 +35,4 @@ jobs:
           GIT_AUTHORIZATION: '${{ secrets.GIT_AUTHORIZATION }}'
           TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
           TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
+          APP_IDENTIFIER: '${{ secrets.APP_IDENTIFIER }}'
