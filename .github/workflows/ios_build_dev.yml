@@ -27,7 +27,7 @@ jobs:
         run: bundle install
 
       - name: Build iOS
-        run: bundle exec fastlane ios beta
+        run: bundle exec fastlane ios build
         env:
           DEVELOPER_PORTAL_TEAM_ID: '${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}'
           APPLE_ID: '${{ secrets.APPLE_ID }}'
