@@ -28,15 +28,9 @@ jobs:
         with:
           lane: ios beta
         env:
-          APP_IDENTIFIER: '${{ secrets.APP_IDENTIFIER }}'
-          ONE_SIGNAL_APP_IDENTIFIER: '${{ secrets.ONE_SIGNAL_APP_IDENTIFIER }}'
           DEVELOPER_PORTAL_TEAM_ID: '${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}'
           APPLE_ID: '${{ secrets.APPLE_ID }}'
           MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
           GIT_AUTHORIZATION: '${{ secrets.GIT_AUTHORIZATION }}'
           TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
           TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
-          APPLE_STORE_CONNECT_TEAM_ID: '${{ secrets.APPLE_STORE_CONNECT_TEAM_ID }}'
-          APPLE_STORE_API_KEY: '${{ secrets.APPLE_STORE_API_KEY }}'
-          APPLE_STORE_ISSUER_ID: '${{ secrets.APPLE_STORE_ISSUER_ID }}'
-          APPLE_STORE_CONTENT: '${{ secrets.APPLE_STORE_CONTENT }}'
